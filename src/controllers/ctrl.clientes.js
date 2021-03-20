@@ -21,8 +21,13 @@ CtrlClientes.setCliente = async (req, res) => {
         telefono: telefono,
         direccion: direccion
     });
+
+    const userExist = await modelClientes.findOne({"cedula": cedula});
+    if(userExist) return res.status(400).json({error: "Ya existe un usuario registrado con esa cedula"});
+    
     await nuevoCliente.save();
-    res.json(nuevoCliente)
+    res.json(nuevoCliente);
+    console.log("Cliente creado: ", nuevoCliente);
 };
 
 module.exports = CtrlClientes;

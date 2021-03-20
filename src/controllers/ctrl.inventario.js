@@ -23,8 +23,13 @@ CtrlInventario.addInventario = async (req, res) => {
         precioCompra: precioCompra,
         precioVenta: precioVenta
     })
+
+    const productExists = await modelInventario.findOne({"codigoProducto": codigoProducto});
+    if(productExists) return res.status(400).json({error: "Ya existe un producto registrado con ese codigo"});
+
     await nuevoInventario.save();
-    
+    res.json(nuevoInventario);
+    console.log("Producto creado: ", nuevoInventario);
 };
 
 module.exports = CtrlInventario;    

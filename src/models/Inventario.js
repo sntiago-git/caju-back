@@ -4,8 +4,7 @@ const inventarioSchema = new Schema({
 
     nombreProducto: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     codigoProducto: {
         type: String,
